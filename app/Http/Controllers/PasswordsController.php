@@ -33,7 +33,6 @@ class PasswordsController extends Controller
         return $status === Password::RESET_LINK_SENT
             ? back()->with(['success' => 'An email has been sent to you !'])
             : back()->withErrors(['email' => __($status)]);
-
     }
 
     public function resetPasswordPage($token)
@@ -47,16 +46,13 @@ class PasswordsController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
         ]);
-
         $status = Password::reset(
             $request->only('email','password','password_confirmation','token'),
             function (User $user , string $password){
                 $user->forceFill([
                     'password' => $password
                 ]);
-
                 $user->save();
-
                 event(new PasswordReset($user));
             }
         );

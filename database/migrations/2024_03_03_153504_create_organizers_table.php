@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('paypal_id')->nullable();
-            $table->string('organization');
+            $table->string('organization')->nullable();
             $table->foreignId('user_id')->constrained('users');
         });
     }

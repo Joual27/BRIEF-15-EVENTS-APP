@@ -90,7 +90,7 @@
                                         <a
                                             class="mb-3 flex w-[80%] mx-auto gap-[10px]  items-center justify-center rounded bg-primary px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#d93025] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] focus:bg-red-700 focus:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(217,48,37,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)]"
                                             style="background-color: #3b5998"
-                                            href=""
+                                            href="{{route('redirect.facebook')}}"
                                             role="button"
                                             data-te-ripple-init
                                             data-te-ripple-color="light">
@@ -106,7 +106,7 @@
                                         </a>
                                         <a class="mb-3 flex w-[80%] mx-auto gap-[15px]  items-center justify-center rounded bg-red-600 px-7 pb-2.5 pt-3 text-center text-sm font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#d93025] transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] focus:bg-red-700 focus:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.3),0_4px_18px_0_rgba(217,48,37,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(217,48,37,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(217,48,37,0.2),0_4px_18px_0_rgba(217,48,37,0.1)]"
                                            style="background-color: #DB4437"
-                                           href=""
+                                           href="{{route('redirect.google')}}"
                                            role="button"
                                            data-te-ripple-init
                                            data-te-ripple-color="light">

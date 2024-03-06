@@ -1,7 +1,7 @@
 @extends('main')
 
 
-@section('title','Dashboard')
+@section('title','Events')
 
 @section('content')
 
