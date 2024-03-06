@@ -21,9 +21,10 @@ return new class extends Migration
             $table->integer('number_of_seats');
             $table->integer('price_per_seat');
             $table->string('validation_type');
-            $table->dateTime('validated_at');
+            $table->dateTime('validated_at')->nullable();
             $table->foreignId('organizer_id')->constrained('organizers');
             $table->foreignId('category_id')->constrained('categories');
+            $table->string('image');
         });
     }
 

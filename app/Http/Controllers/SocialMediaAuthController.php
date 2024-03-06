@@ -23,13 +23,14 @@ class SocialMediaAuthController extends Controller
        if($existing_user){
            if($existing_user->is_customer()){
                Session::put('role','customer');
+               Session::put('user_id',$existing_user->id);
                return redirect()->route('events.all');
 
            }
            else if($existing_user->is_organizer()){
                Session::put('role','organizer');
+               Session::put('user_id',$existing_user->id);
                return redirect()->route('dashboard');
-
            }
        }
        else{

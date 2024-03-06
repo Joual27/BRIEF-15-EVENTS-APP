@@ -57,5 +57,6 @@ Route::group(['middleware' => 'role:customer'],function (){
 
 Route::group(['middleware' => 'role:organizer'],function (){
     Route::get('/dashboard',[\App\Http\Controllers\OrganizerController::class,'dashboard'])->name('dashboard');
+    Route::post('/events/create',[\App\Http\Controllers\OrganizerController::class,'createEvent'])->name('event.add');
 });
 

@@ -34,7 +34,21 @@
     </div>
 
 
-    <section class="mt-[3rem] bg-gray-200 min-h-[100vh]">
+
+
+    <section class="mt-[3rem] bg-gray-200 min-h-[100vh] pt-[1.5rem]">
+        @if($msg = \Illuminate\Support\Facades\Session::get('success'))
+            <div id="success_msg" class="w-[30%] mx-auto h-[50px] bg-green-500 flex justify-center items-center font-medium text-white mb-[1.5rem] rounded-xl">
+                <p>{{$msg}}</p>
+            </div>
+
+            <script>
+                let msg = document.getElementById('success_msg');
+                setTimeout(function (){
+                    msg.classList.add('hidden');
+                },2500)
+            </script>
+        @endif
         <div class="w-[80%] mx-auto py-[2rem] flex flex-col gap-[2rem] ">
             <div class="flex justify-between">
                 <p class="font-medium text-gray-600 text-[1.35rem] underline">MY EVENTS:</p>
@@ -122,14 +136,28 @@
     </section>
 
 
-    <div id="add_event_form" class="absolute w-full h-full inset-0 bg-gray-700 backdrop-filter bg-opacity-50 backdrop-blur-md  flex items-center justify-center hidden" style="position: fixed ; z-index: 10000">
+    <div id="add_event_form" class="absolute w-full h-full inset-0 bg-gray-700 backdrop-filter bg-opacity-50 backdrop-blur-md  flex items-center justify-center @if((!$errors->any())) hidden @endif" style="position: fixed ; z-index: 10000">
         <div class="relative bg-gray-200 rounded-xl w-[30%] mx-auto ">
             <div class="forget-top-div absolute w-full h-[40px] bg-red-300 inset-0 rounded-t-xl flex justify-end pr-[1.5rem] items-center">
                 <img id="close-btn" src="{{asset('images/close.png')}}" alt="" class="w-[25px] h-[25px] cursor-pointer" >
             </div>
             <div class="flex flex-col gap-[1rem] items-center mx-auto pt-[4rem] w-[80%] h-[100%]">
+                @if ($errors->any())
+                    <div id="errors" class="w-full mx-auto bg-red-300 font-medium mb-[3rem] text-red-700 rounded-lg px-[2.5%] py-[0.5rem]">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <script>
+                        setTimeout(function (){
+                            document.getElementById('errors').classList.add('hidden');
+                        },2000)
+                    </script>
+                @endif
                 <p class="underline text-gray-700 font-medium text-center">Add Event Form</p>
-                <form action="" class="flex flex-col items-center justify-center gap-[1rem] w-full" method="POST">
+                <form action="{{route('event.add')}}" class="flex flex-col items-center justify-center gap-[1rem] w-full" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="text" name="title" class=" w-full bg-slate-200  font-medium text-gray-500 px-[0.5rem] py-[0.5rem] rounded-lg focus:outline-none" placeholder="Event Title">
                     <textarea name="description" class=" w-full bg-slate-200  font-medium text-gray-500 px-[0.5rem] py-[0.5rem] rounded-lg focus:outline-none resize-none h-[100px]" placeholder="Event Description"></textarea>
@@ -144,8 +172,14 @@
                     </select>
                     <select name="category_id" class=" w-full bg-slate-200  font-medium text-gray-500 px-[0.5rem] py-[0.5rem] rounded-lg focus:outline-none mb-[2rem]">
                         <option value="">choose event's category</option>
-
+                        @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->name}}</option>
+                        @endforeach
                     </select>
+                    <div class="grid w-full items-center gap-1.5 mt-[-1.5rem]">
+                        <label class="ml-[0.5rem] text-sm text-gray-400 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">Event's Banner</label>
+                        <input name="image" type="file" class="flex h-10 w-full rounded-md border border-input bg-slate-200 px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium">
+                    </div>
                     <button type="submit" class="btn-border w-[30%]  py-[0.4rem] bg-black text-white font-medium mb-[1rem]">Submit</button>
                 </form>
 
