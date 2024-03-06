@@ -65,7 +65,7 @@
                             </div>
                             <div class="flex gap-[5px]">
                                 <img src="{{asset('images/attendance.png')}}" class="w-[30px] h-[30px]" alt="clock image">
-                                <p class="font-medium text-white">:</p>
+                                <p class="font-medium mt-[0.00000000000001px] text-white">:</p>
                                 <p class="font-medium text-white">500 persons</p>
                             </div>
                         </div>
@@ -73,9 +73,7 @@
                         <div class="px-[1rem] w-full flex justify-end gap-[0.75rem]  items-center">
                             <img src="{{asset('images/edit.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt="">
                             <img src="{{asset('images/delete.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt="">
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -119,7 +117,7 @@
                     </div>
                 </div>
             </div>
-            </d>
+
         </div>
     </section>
 
