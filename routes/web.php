@@ -53,6 +53,7 @@ Route::post('/register/social/organizer',[\App\Http\Controllers\SocialMediaAuthC
 
 Route::group(['middleware' => 'role:customer'],function (){
     Route::get('/events',[\App\Http\Controllers\CustomerController::class,'events'])->name('events.all');
+    Route::post('/event/book',[\App\Http\Controllers\CustomerController::class,'bookEvent']);
 });
 
 Route::group(['middleware' => 'role:organizer'],function (){

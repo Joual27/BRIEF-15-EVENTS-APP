@@ -163,10 +163,13 @@
                           url : '/event/book',
                           type : 'POST',
                           dataType : 'json',
-
+                          headers: {
+                              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                          },
                           data : {
                             book : 1,
-                            event_id : event_id
+                            event_id : event_id,
+                            validation_type : validation_type
                           },
                           success : function (response){
                             if(response.success){
@@ -200,8 +203,6 @@
                 $('#cancel_btn').on('click',function (){
                     $('#confirm_reservation').addClass('hidden');
                 })
-
-
             });
 
 
