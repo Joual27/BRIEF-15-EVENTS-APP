@@ -156,7 +156,8 @@
                     let event_id = $(this).data('id');
                     let validation_type = $(this).closest('#event_data').find('#validation_type').text();
                     $('#confirm_reservation').removeClass('hidden');
-                    console.log(validation_type);
+
+                    let validationType = encodeURI(validation_type);
 
                     $('#confirm_btn').on('click',function (){
                       $.ajax({
@@ -169,27 +170,35 @@
                           data : {
                             book : 1,
                             event_id : event_id,
-                            validation_type : validation_type
+                            validation_type : validationType
                           },
                           success : function (response){
-                            if(response.success){
-                                if(validation_type == 'Open Doors'){
-                                    $('#confirmation_msg').text('Reservation done');
-                                    setTimeout(function (){
-                                        $('#confirmation_msg').addClass('hidden');
-                                        $('#confirm_reservation').addClass('hidden');
-                                    },2000)
-
-                                }
-                                else{
-                                    $('#confirmation_msg').text("Request done , Wait for admin's approval !");
-                                    setTimeout(function (){
-                                        $('#confirmation_msg').addClass('hidden');
-                                        $('#confirm_reservation').addClass('hidden');
-
-                                    },2000)
-                                }
+                            if(response.status === 'success'){
+                                $('#confirmation_msg').text('Reservation done ! check My reservations Tab to download your ticket !');
+                                setTimeout(function (){
+                                    $('#confirmation_msg').addClass('hidden');
+                                    $('#confirm_reservation').addClass('hidden');
+                                },3000)
                             }
+
+                            else if(response.status === 'pending'){
+                                $('#confirmation_msg').text("Request done , Wait for admin's approval !");
+                                setTimeout(function (){
+                                    $('#confirmation_msg').addClass('hidden');
+                                    $('#confirm_reservation').addClass('hidden');
+                                },2000)
+                            }
+                            else{
+                                $('#confirmation_msg').css('color','red !important');
+                                $('#confirmation_msg').text("Sorry this event is already full !");
+                                setTimeout(function (){
+                                    $('#confirmation_msg').addClass('hidden');
+                                    $('#confirm_reservation').addClass('hidden');
+                                },2000)
+                            }
+                          },
+                          error: function(xhr, status, error) {
+                              console.error('Error fetching events:', error);
                           }
                       })
                     })

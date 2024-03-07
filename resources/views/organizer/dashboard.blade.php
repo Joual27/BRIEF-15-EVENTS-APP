@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="h-[150px] flex items-center w-[80%] mx-auto justify-center z-20 bg-transparent">
-        <nav class="flex justify-between w-full">
+        <nav class="flex justify-between w-full items-center">
             <div>
                 <p class="bg-gradient-to-t from-purple-500 via-red-800 to-blue-400 inline-block text-transparent bg-clip-text text-[1.5rem] font-medium">X-EVENTO</p>
             </div>
@@ -21,11 +21,25 @@
                 <li class="hover:text-orange-400"><a href="">Stats</a></li>
                 <li class="hover:text-orange-400"><a href="">Logout</a></li>
             </ul>
-            <div>
-                <button class="text-white font-medium py-[0.4rem] px-[0.75rem] cursor-pointer btn-border ">
-                    <a href="">Discover Our Events</a>
-                </button>
-            </div>
+
+                <div class="relative h-32 w-32 mt-[75px] cursor-pointer">
+                    <div class="absolute left-0 top-0  bg-red-500 rounded-full">
+                        <span class="text-sm text-white p-1">12</span>
+                    </div>
+                    <div class="p-2">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor"
+                            class="text-gray-600 w-6 h-6"
+                            viewBox="0 0 16 16"
+                        >
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"
+                            />
+                        </svg>
+                    </div>
+                </div>
+
         </nav>
     </div>
 
@@ -66,7 +80,7 @@
                 <p class="font-medium text-gray-600 text-[1.35rem] underline">MY EVENTS:</p>
                 <button id="add_event_btn" class="px-[0.6rem] py-[0.3rem] btn-border text-gray-600 font-medium hover:text-white"> +  Add Event</button>
             </div>
-            <div class="flex flex-wrap gap-[3.33%]">
+            <div class="flex flex-wrap gap-[3.33%] z-0">
                @foreach($events as $event)
                     <div class="relative w-[30%] min-h-[285px] ">
                         <div class="absolute inset-0 bg-black opacity-60 rounded-xl z-10"></div>
@@ -228,6 +242,152 @@
     </div>
 
 
+    <div class="absolute top-[85px] right-[6.5%] w-[350px] h-[300px] bg-slate-100 z-100 rounded-lg hidden" style="overflow-y: scroll;">
+        <div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div><div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div><div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div><div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <div class="flex w-[95%] mx-auto rounded-xl justify-between px-3 bg-white items-center gap-1 rounded-lg border border-gray-100 my-3">
+            <div>
+                <span class="font-mono">Emma would like to connect with you</span>
+            </div>
+            <div class="flex gap-2">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div id="notification_alert" class="flex w-96 shadow-lg rounded-lg fixed bottom-[2rem] right-[2rem] z-100 hiddend .">
+        <div class="bg-orange-400 py-4 px-6 rounded-l-lg flex items-center">
+            <img src="{{asset('images/bell.png')}}" class="w-[35px] h-[30px]" alt="">
+        </div>
+        <div class="px-4 py-6 bg-orange-100 rounded-r-lg flex justify-between items-center w-full border border-l-transparent border-gray-200">
+            <div class="text-gray-500 font-medium">You have a new notification</div>
+            <button>
+                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current text-gray-700" viewBox="0 0 16 16" width="20" height="20"><path fill-rule="evenodd" d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"></path></svg>
+            </button>
+        </div>
+    </div>
 
 @endsection
 
