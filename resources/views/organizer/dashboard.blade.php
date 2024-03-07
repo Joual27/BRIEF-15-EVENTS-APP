@@ -19,7 +19,7 @@
             <ul class="flex ml-[4rem] text-gray-300 items-center justify-center  font-medium text-[1.25rem] gap-[40px] ">
                 <li class="hover:text-orange-400"><a href="" >My Events</a></li>
                 <li class="hover:text-orange-400"><a href="">Stats</a></li>
-                <li class="hover:text-orange-400"><a href="">All Events</a></li>
+                <li class="hover:text-orange-400"><a href="">Logout</a></li>
             </ul>
             <div>
                 <button class="text-white font-medium py-[0.4rem] px-[0.75rem] cursor-pointer btn-border ">
@@ -38,7 +38,7 @@
 
     <section class="mt-[3rem] bg-gray-200 min-h-[100vh] pt-[1.5rem]">
         @if($msg = \Illuminate\Support\Facades\Session::get('success'))
-            <div id="success_msg" class="w-[30%] mx-auto h-[50px] bg-green-500 flex justify-center items-center font-medium text-white mb-[1.5rem] rounded-xl">
+            <div id="success_msg" class="w-[20%] mx-auto h-[50px] bg-green-500 flex justify-center items-center font-medium text-white mb-[1.5rem] rounded-xl">
                 <p>{{$msg}}</p>
             </div>
 
@@ -49,47 +49,87 @@
                 },2500)
             </script>
         @endif
+            @if($msg = \Illuminate\Support\Facades\Session::get('deleted'))
+                <div id="delete_msg" class="w-[20%] mx-auto h-[50px] bg-red-500 flex justify-center items-center font-medium text-white mb-[1.5rem] rounded-xl">
+                    <p>{{$msg}}</p>
+                </div>
+
+                <script>
+                    let msg = document.getElementById('delete_msg');
+                    setTimeout(function (){
+                        msg.classList.add('hidden');
+                    },2500)
+                </script>
+            @endif
         <div class="w-[80%] mx-auto py-[2rem] flex flex-col gap-[2rem] ">
             <div class="flex justify-between">
                 <p class="font-medium text-gray-600 text-[1.35rem] underline">MY EVENTS:</p>
                 <button id="add_event_btn" class="px-[0.6rem] py-[0.3rem] btn-border text-gray-600 font-medium hover:text-white"> +  Add Event</button>
             </div>
-            <div class="flex justify-between flex-wrap gap-[1rem]">
-                <div class="relative w-[30%] min-h-[310px] ">
-                    <div class="absolute inset-0 bg-black  opacity-50 rounded-xl z-10"></div>
-                    <img src="{{asset('images/party.jpg')}}" class="absolute inset-0 object-cover w-full h-full rounded-xl z-0" alt="">
-                    <div class="absolute top-0 left-0 w-full h-full flex flex-col z-20">
-                        <div class="h-[30%] flex flex-col justify-center px-[1rem] py-[0.75rem]">
-                            <p class="text-[1.5rem] font-bold text-red-200 uppercase font-mono">Event Title</p>
-                        </div>
-                        <div class="px-[1rem]">
-                            <p class="text-white font-medium text-[0.9rem]">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, enim?</p>
-                        </div>
+            <div class="flex flex-wrap gap-[3.33%]">
+               @foreach($events as $event)
+                    <div class="relative w-[30%] min-h-[285px] ">
+                        <div class="absolute inset-0 bg-black opacity-60 rounded-xl z-10"></div>
+                        <img src="{{asset('storage/uploads/'. $event->image)}}" class="absolute inset-0 object-cover w-full h-full rounded-xl z-0" alt="">
+                        <div class="absolute top-0 left-0 w-full h-full flex flex-col z-20">
+                            <div class="h-[30%] flex flex-col justify-center px-[1rem] py-[0.75rem]">
+                                <p class="text-[1.5rem] font-bold text-red-200 uppercase font-mono">{{$event->title}}</p>
+                            </div>
+                            <div class="px-[1rem]">
+                                <p class="text-white font-medium text-[0.9rem]">{{$event->description}}</p>
+                            </div>
 
-                        <div class="flex mt-[0.5rem] gap-[1rem] flex-col px-[1rem]">
-                            <div class="flex gap-[5px] items-center">
-                                <img src="{{asset('images/clock.png')}}" class="w-[30px] h-[30px]" alt="clock image">
-                                <p class="font-medium text-white">:</p>
-                                <p class="font-medium text-white">16 december 2023 - 11.00 PM</p>
+                            <div class="flex mt-[0.5rem] gap-[1rem] flex-col px-[1rem]">
+                                <div class="flex gap-[5px] items-center">
+                                    <img src="{{asset('images/clock.png')}}" class="w-[30px] h-[30px]" alt="clock image">
+                                    <p class="font-medium text-white">:</p>
+                                    <p class="font-medium text-white">{{$event->date}}</p>
+                                </div>
+                                <div class="flex gap-[5px]">
+                                    <img src="{{asset('images/location.png')}}" class="w-[30px] h-[30px]" alt="clock image">
+                                    <p class="font-medium text-white">:</p>
+                                    <p class="font-medium text-white">{{$event->venue}}</p>
+                                </div>
+                                <div class="flex gap-[5px]">
+                                    <img src="{{asset('images/attendance.png')}}" class="w-[30px] h-[30px]" alt="clock image">
+                                    <p class="font-medium mt-[0.00000000000001px] text-white">:</p>
+                                    <p class="font-medium text-white">{{$event->number_of_seats}}</p>
+                                </div>
                             </div>
-                            <div class="flex gap-[5px]">
-                                <img src="{{asset('images/location.png')}}" class="w-[30px] h-[30px]" alt="clock image">
-                                <p class="font-medium text-white">:</p>
-                                <p class="font-medium text-white">Massira Stadium</p>
-                            </div>
-                            <div class="flex gap-[5px]">
-                                <img src="{{asset('images/attendance.png')}}" class="w-[30px] h-[30px]" alt="clock image">
-                                <p class="font-medium mt-[0.00000000000001px] text-white">:</p>
-                                <p class="font-medium text-white">500 persons</p>
-                            </div>
-                        </div>
 
-                        <div class="px-[1rem] w-full flex justify-end gap-[0.75rem]  items-center">
-                            <img src="{{asset('images/edit.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt="">
-                            <img src="{{asset('images/delete.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt="">
+                            <div class="px-[1rem] w-full flex justify-end gap-[0.75rem]  items-center">
+                                @if(empty($event->validated_at))
+                                    <div class="bg-orange-500 text-white font-medium px-[0.5rem] py-[0.2rem] rounded-md">
+                                        <p>Pending</p>
+                                    </div>
+                                @else()
+                                    <div class="bg-green-500 text-white font-medium px-[0.5rem] py-[0.2rem] rounded-md">
+                                        <p>Validated</p>
+                                    </div>
+                                @endif
+
+                                @if($event->date < now())
+                                        <div class="bg-red-500 text-white font-medium px-[0.5rem] py-[0.2rem] rounded-md">
+                                            <p>Closed</p>
+                                        </div>
+                                @else
+                                        <div class="bg-indigo-500 text-white font-medium px-[0.5rem] py-[0.2rem] rounded-md">
+                                            <p>Upcoming</p>
+                                        </div>
+                                @endif
+                                    <a href="{{route('event.edit',$event)}}"><img src="{{asset('images/edit.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt=""></a>
+                                    <form action="{{ route('event.delete', $event) }}" class="" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" onclick="return confirm('Are you sure you want to delete this event?')"><img src="{{asset('images/delete.png')}}" class="mt-[1rem] w-[35px] h-[35px] cursor-pointer" alt=""></button>
+                                    </form>
+
+
+                            </div>
+
                         </div>
                     </div>
-                </div>
+               @endforeach
             </div>
         </div>
 
@@ -102,7 +142,7 @@
                     <div class="px-4 py-5 sm:p-6 ">
                         <dl>
                             <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Validated Events</dt>
-                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">1.6M</dd>
+                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">{{$validated_events}}</dd>
                         </dl>
                     </div>
                 </div>
@@ -110,7 +150,7 @@
                     <div class="px-4 py-5 sm:p-6">
                         <dl>
                             <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Events On Hold</dt>
-                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">19.2K</dd>
+                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">{{$pending_events}}</dd>
                         </dl>
                     </div>
                 </div>
