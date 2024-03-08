@@ -29,11 +29,36 @@
     <div>
         <p class="text-[1.75rem] mt-[1.5rem] font-medium text-center text-gray-200">ALL EVENTS :</p>
     </div>
-    <section class="mt-[1.5rem] bg-gray-200 min-h-[75vh] pt-[2rem] w-full">
-        <div id="events" class="w-[80%] mx-auto flex flex-col gap-[1rem]">
+    <section class="mt-[1.5rem] gap-[1rem] flex flex-col bg-gray-200 h-[75vh] pt-[0.5rem] w-full">
 
+        <div class="w-[80%] mx-auto h-[50px]">
+            <div class="w-[65%] mx-auto  h-[100%] flex gap-[1.5rem] ">
+                <div class="w-[90%] mx-auto h-[100%] flex gap-[1.5rem]">
+                    <input class="search_events h-[75%] my-auto" id="title_filter" placeholder="Search by title ..." type="search">
+                    <div class="relative my-auto h-10 w-72 min-w-[200px]">
+                        <select id="category_filter"
+                            class="peer h-full  w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                            <option value="">Choose Category</option>
+                        </select>
+                        <label
+                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            Filter by Category
+                        </label>
+                    </div>
+                    <input id="venue_filter" class="search_events h-[75%] my-auto" id="venue_filter"  placeholder="Search by Venue ..." type="search">
+                    <div class="relative my-auto h-10 w-72 min-w-[200px]">
+                        <input type="date" id="date_filter" class="peer h-full w-full rounded-[7px] border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-2.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 empty:!bg-gray-900 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50">
+                        <label
+                            class="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-gray-900 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                            filter by date
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="pagination" class="flex w-full gap-[1rem] justify-end mt-[1rem] px-[17.5%]">
+{{--        <div class="absolute left-[5%] top-[28vh] mr-[7.5%] w-[20%] h-[65vh] bg-black bg-opacity-0 rounded-lg"></div>--}}
+        <div id="events" class="w-[80%] mx-auto flex flex-col gap-[1rem]"></div>
+        <div id="pagination" class="absolute bottom-[2rem] flex w-full gap-[1rem] justify-end mt-[1rem] px-[17.5%]">
         </div>
 
     </section>
@@ -46,13 +71,11 @@
             <div class="flex flex-col items-center gap-[1rem]">
                 <img class="w-[70px] h-[70px] rounded-full" src="{{asset('images/booking.png')}}" alt="booking icon">
                 <p class="font-medium text-orange-600 ">Confirm Reservation</p>
-
                 <div class="flex w-full gap-[15px] justify-center">
                     <button id="confirm_btn" class="bg-indigo-500 text-white font-medium px-[0.5rem] py-[0.25rem] rounded-lg hover:bg-indigo-400">Confirm</button>
                     <button id="cancel_btn" class="bg-red-500 text-white font-medium px-[0.5rem] py-[0.25rem] rounded-lg hover:bg-red-400">Cancel</button>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -126,7 +149,7 @@
                             <button id='book_btn' class="login-btn px-[0.5rem] py-[0.25rem] text-white font-medium" data-id='${row.id}'>Book</button>
                         </div>
                     </div>
-                    <div class="relative ">
+                    <div class="relative">
                         <img src="{{ asset('${imagePath}') }}" class="inset-0 w-full h-[200px] rounded-xl object-cover z-0" alt="">
                         <div class="absolute w-full h-[200px] rounded-xl bg-black inset-0 opacity-40 z-10"></div>
                     </div>
@@ -143,6 +166,15 @@
                 }
 
             }
+
+            function fetchCategories(response){
+                $.each(response,function(index,row){
+                    $('#category_filter').append(
+                        `<option value="${row.id}">${row.name}</option>`
+                    )
+                })
+            }
+
             $(document).ready(function() {
                 fetchEvents();
 
@@ -156,8 +188,7 @@
                     $('#confirm_reservation').removeClass('hidden');
 
                     let validationType = encodeURI(validation_type);
-
-                    $('#confirm_btn').on('click',function (){
+                    $('#confirm_btn').off('click').on('click', function() {
                       $.ajax({
                           url : '/event/book',
                           type : 'POST',
@@ -171,6 +202,7 @@
                             validation_type : validationType
                           },
                           success : function (response){
+
                             if(response.status === 'success'){
                                 $('#confirmation_msg').text('Reservation done ! check My reservations Tab to download your ticket !');
                                 setTimeout(function (){
@@ -178,7 +210,6 @@
                                     $('#confirm_reservation').addClass('hidden');
                                 },3000)
                             }
-
                             else if(response.status === 'pending'){
                                 $('#confirmation_msg').text("Request done , Wait for admin's approval !");
                                 setTimeout(function (){
@@ -210,7 +241,105 @@
                 $('#cancel_btn').on('click',function (){
                     $('#confirm_reservation').addClass('hidden');
                 })
+
+
+                $.ajax({
+                    url : '/categories/all',
+                    type : 'GET',
+                    dataType : 'json',
+                    success : function (response){
+                        fetchCategories(response);
+                    }
+                })
+
+
+                $('#title_filter').on('keyup',function () {
+                    let searchTerm = $('#title_filter').val();
+
+                    $.ajax({
+                        url: '/event/filter/title',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            search: 1,
+                            term: searchTerm
+                        },
+                        success: function (response) {
+                            if(response == []){
+                                fetchEvents();
+                            }
+                            else {
+                                updateEvents(response)
+                            }
+
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error fetching events:', error);
+                        }
+                    })
+
+                })
+
+                $('#category_filter').on('change',function (){
+                    let category = $('#category_filter').val();
+
+                    $.ajax({
+                        url : '/event/filter/category',
+                        type : 'POST',
+                        dataType : 'json' ,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data : {
+                            filter : 1,
+                            category : category
+                        },
+                        success : function (response){
+                            if(response.status == 'default'){
+                                fetchEvents();
+                            }
+                            else{
+                                updateEvents(response)
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching events:', error);
+                        }
+                    })
+
+                })
+
+                $('#venue_filter').on('keyup',function () {
+                    let searchTerm = $('#venue_filter').val();
+
+                    $.ajax({
+                        url: '/event/filter/venue',
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            search: 1,
+                            term: searchTerm
+                        },
+                        success: function (response) {
+                            updateEvents(response)
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error fetching events:', error);
+                        }
+                    })
+
+                })
+
             });
+
+
+
 
 
 

@@ -133,6 +133,7 @@ class OrganizerController extends Controller
 
         $requests = Reservation::whereIn('event_id',$events_of_organizer_ids)
             ->whereNull('validated_at')
+            ->whereNull('refused_at')
             ->with('customer.user','event')
             ->orderBy('created_at','desc')
             ->get();
@@ -151,10 +152,37 @@ class OrganizerController extends Controller
         $events_of_organizer_ids = Event::where('organizer_id',$organizer->id)->pluck('id')->toArray();
         $pending_requests_count = $requests = Reservation::whereIn('event_id',$events_of_organizer_ids)
             ->whereNull('validated_at')
+            ->whereNull('refused_at')
             ->count();
         return response()->json(['count' => $pending_requests_count]);
     }
 
+
+    public function validateRequest(Request $request){
+
+        if(isset($request->validate)){
+            $id = $request->id;
+            $reservation = Reservation::findOrFail($id);
+
+            $max_seat_number = Reservation::where('event_id',$reservation->event_id)
+                ->max('seat_number');
+
+            $reservation->validated_at = now();
+            $reservation->seat_number = $max_seat_number + 1;
+            $reservation->save();
+        }
+    }
+
+
+    public function refuseRequest(Request $request){
+
+        if(isset($request->refuse)){
+            $id = $request->id;
+            $reservation = Reservation::findOrFail($id);
+            $reservation->refused_at = now();
+            $reservation->save();
+        }
+    }
 
 
 

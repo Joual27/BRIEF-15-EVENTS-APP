@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Event;
 use App\Models\Reservation;
@@ -25,7 +26,7 @@ class CustomerController extends Controller
 
     public function bookEvent(Request $request)
     {
-        if(isset($request->book)){
+
 
             $event = Event::findOrFail($request->event_id);
             $validatedReservations = Reservation::where('event_id',$request->event_id)
@@ -70,9 +71,47 @@ class CustomerController extends Controller
                 }
             }
             }
-            else{
-                return response()->json(['status' => 'failed']);
+
+
+            public function allCategories(){
+               $categories = Category::all();
+               return response()->json($categories);
             }
-        }
+
+
+            public function filterByName(Request $request){
+                if (isset($request->search)){
+                    $events = Event::where('date' , '>' ,now())
+                        ->where('title','LIKE', $request->term . '%')
+                        ->whereNotNUll('validated_at')
+                        ->paginate(3);
+                    return response()->json($events);
+                }
+            }
+            public function filterByVenue(Request $request){
+                if (isset($request->search)){
+                    $events = Event::where('date' , '>' ,now())
+                        ->where('venue','LIKE', $request->term . '%')
+                        ->whereNotNUll('validated_at')
+                        ->paginate(3);
+                    return response()->json($events);
+                }
+            }
+
+
+            public function filterByCategory(Request $request){
+                if (isset($request->filter)){
+                    $events = Event::where('date' , '>' ,now())
+                        ->where('category_id',$request->category)
+                        ->whereNotNUll('validated_at')
+                        ->paginate(3);
+                    if($request->category == ""){
+                        return response()->json(['status' => 'default']);
+                    }
+                    return response()->json($events);
+                }
+            }
+
+
 
 }

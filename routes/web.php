@@ -54,6 +54,10 @@ Route::post('/register/social/organizer',[\App\Http\Controllers\SocialMediaAuthC
 Route::group(['middleware' => 'role:customer'],function (){
     Route::get('/events',[\App\Http\Controllers\CustomerController::class,'events'])->name('events.all');
     Route::post('/event/book',[\App\Http\Controllers\CustomerController::class,'bookEvent']);
+    Route::get('/categories/all',[\App\Http\Controllers\CustomerController::class,'allCategories']);
+    Route::post('/event/filter/title',[\App\Http\Controllers\CustomerController::class,'filterByName']);
+    Route::post('/event/filter/venue',[\App\Http\Controllers\CustomerController::class,'filterByVenue']);
+    Route::post('/event/filter/category',[\App\Http\Controllers\CustomerController::class,'filterByCategory']);
 });
 
 Route::group(['middleware' => 'role:organizer'],function (){
@@ -64,6 +68,8 @@ Route::group(['middleware' => 'role:organizer'],function (){
     Route::delete('/event/delete/{event}',[\App\Http\Controllers\OrganizerController::class,'deleteEvent'])->name('event.delete');
     Route::get('/requests/pending',[\App\Http\Controllers\OrganizerController::class,'fetchRequests']);
     Route::get('/requests/count',[\App\Http\Controllers\OrganizerController::class,'requestsCount']);
+    Route::post('/request/validate',[\App\Http\Controllers\OrganizerController::class,'validateRequest']);
+    Route::post('/request/refuse',[\App\Http\Controllers\OrganizerController::class,'refuseRequest']);
 });
 
 Route::get('/events/all',[\App\Http\Controllers\CustomerController::class,'allEvents'])->name('events.all');

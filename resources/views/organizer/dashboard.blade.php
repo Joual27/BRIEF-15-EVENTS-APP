@@ -24,7 +24,7 @@
 
                 <div id="notifs" class="relative h-32 w-32 mt-[75px] cursor-pointer">
                     <div class="absolute left-0 top-0 bg-red-500 rounded-full">
-                        <span id=notifications_count" data-count="" class="text-sm text-white p-1"></span>
+                        <span id="notifications_count" data-count="0" class="text-sm text-white p-1">0</span>
                     </div>
                     <div class="p-2">
                         <svg
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                @endforeach
-                <div class="flex justify-end w-full px-[10%]">
+                <div class="flex justify-end w-full ">
                     {{$events->links()}}
                 </div>
             </div>
