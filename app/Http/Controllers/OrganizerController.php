@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Event;
+use App\Models\Organizer;
+use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +24,7 @@ class OrganizerController extends Controller
         }
         $validated_events = Event::whereNotNull('validated_at')->count();
         $pending_events = Event::whereNUll('validated_at')->count();
-        $events = Event::where('organizer_id',$organizer->id)->get();
+        $events = Event::where('organizer_id',$organizer->id)->paginate(3);
         $categories = Category::all();
         return view('organizer.dashboard',[
             'categories' => $categories,
@@ -113,11 +115,44 @@ class OrganizerController extends Controller
         $event->save();
         return redirect()->route('dashboard')->with('success','Event ' . $event->title . " Updated successfully");
     }
-
     public function deleteEvent(Event $event)
     {
         $event->delete();
         return redirect()->route('dashboard')->with('deleted','Event ' . $event->title . ' deleted successfully !');
+    }
+
+    public function fetchRequests()
+    {
+        if($id = Session::get('user_id')){
+            $organizer = Organizer::where('id',$id)->first();
+        }
+        else{
+            $organizer = Auth::user()->organizer;
+        }
+        $events_of_organizer_ids = Event::where('organizer_id',$organizer->id)->pluck('id')->toArray();
+
+        $requests = Reservation::whereIn('event_id',$events_of_organizer_ids)
+            ->whereNull('validated_at')
+            ->with('customer.user','event')
+            ->orderBy('created_at','desc')
+            ->get();
+
+        return response()->json($requests);
+
+    }
+
+    public function requestsCount(){
+        if($id = Session::get('user_id')){
+            $organizer = Organizer::where('id',$id)->first();
+        }
+        else{
+            $organizer = Auth::user()->organizer;
+        }
+        $events_of_organizer_ids = Event::where('organizer_id',$organizer->id)->pluck('id')->toArray();
+        $pending_requests_count = $requests = Reservation::whereIn('event_id',$events_of_organizer_ids)
+            ->whereNull('validated_at')
+            ->count();
+        return response()->json(['count' => $pending_requests_count]);
     }
 
 

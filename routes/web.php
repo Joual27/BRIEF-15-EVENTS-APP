@@ -62,6 +62,8 @@ Route::group(['middleware' => 'role:organizer'],function (){
     Route::get('/event/edit/{event}',[\App\Http\Controllers\OrganizerController::class,'editEvent'])->name('event.edit');
     Route::post('/event/edit/{event}',[\App\Http\Controllers\OrganizerController::class,'updateEvent'])->name('event.update');
     Route::delete('/event/delete/{event}',[\App\Http\Controllers\OrganizerController::class,'deleteEvent'])->name('event.delete');
+    Route::get('/requests/pending',[\App\Http\Controllers\OrganizerController::class,'fetchRequests']);
+    Route::get('/requests/count',[\App\Http\Controllers\OrganizerController::class,'requestsCount']);
 });
 
 Route::get('/events/all',[\App\Http\Controllers\CustomerController::class,'allEvents'])->name('events.all');
