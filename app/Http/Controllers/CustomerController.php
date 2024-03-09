@@ -8,6 +8,7 @@ use App\Models\Event;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
@@ -110,6 +111,47 @@ class CustomerController extends Controller
                     }
                     return response()->json($events);
                 }
+            }
+            public function filterByDate(Request $request){
+                if (isset($request->filter)){
+                    $event_date = date('Y-m-d',strtotime($request->date));
+                    $eventsQuery = Event::where('date', '>', now())
+                        ->whereDate('date', $event_date)
+                        ->whereNotNull('validated_at');
+
+                    // Log the generated SQL query
+                    \Log::info($eventsQuery->toSql());
+
+                    $events = $eventsQuery->paginate(3);
+                    return response()->json($events);
+                }
+            }
+
+            public function myReservations()
+            {
+               if($logged_user = Session::get('user_id')){
+                   $customer = Customer::where('user_id',$logged_user)->first();
+               }
+               else{
+                   $customer = Auth::user()->customer;
+               }
+
+               $reservations = DB::table('reservations')
+                                  ->join('events','reservations.event_id','=','events.id')
+                                  ->join('categories','events.category_id','=','categories.id')
+                                  ->join('organizers','events.organizer_id','=','organizers.id')
+                                  ->join('users','organizers.user_id','=','users.id')
+                                  ->where('reservations.customer_id',$customer->id)
+                                  ->select(
+                                       'reservations.*',
+                                       'reservations.validated_at as validated',
+                                       'organizers.*',
+                                       'events.*',
+                                       'categories.name as category_name',
+                                       'users.name as user_name'
+                                   )
+                                  ->paginate(6);
+               return view('customer.reservations',['reservations' => $reservations]);
             }
 
 

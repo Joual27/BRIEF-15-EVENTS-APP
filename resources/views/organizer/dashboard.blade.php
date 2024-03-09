@@ -144,9 +144,7 @@
                         </div>
                     </div>
                @endforeach
-                <div class="flex justify-end w-full ">
-                    {{$events->links()}}
-                </div>
+
             </div>
         </div>
 

@@ -17,6 +17,8 @@
             </div>
             <ul class="flex ml-[4rem] text-gray-300 items-center justify-center  font-medium text-[1.25rem] gap-[40px] ">
                 <li class="hover:text-orange-400"><a href="">Home</a></li>
+                <li class="hover:text-orange-400"><a href="{{route('events.all')}}">All Events</a></li>
+                <li class="hover:text-orange-400"><a href="{{route('customer.reservations',)}}">My Reservations</a></li>
                 <li class="hover:text-orange-400"><a href="">Logout</a></li>
             </ul>
             <div>
@@ -304,6 +306,30 @@
                             else{
                                 updateEvents(response)
                             }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error fetching events:', error);
+                        }
+                    })
+
+                })
+
+                $('#date_filter').on('change',function (){
+                    let date = $('#date_filter').val();
+
+                    $.ajax({
+                        url : '/event/filter/date',
+                        type : 'POST',
+                        dataType : 'json' ,
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data : {
+                            filter : 1,
+                            date : date
+                        },
+                        success : function (response){
+                            updateEvents(response)
                         },
                         error: function(xhr, status, error) {
                             console.error('Error fetching events:', error);

@@ -165,6 +165,7 @@ class OrganizerController extends Controller
             $reservation = Reservation::findOrFail($id);
 
             $max_seat_number = Reservation::where('event_id',$reservation->event_id)
+                ->whereNotNull('validated_at')
                 ->max('seat_number');
 
             $reservation->validated_at = now();

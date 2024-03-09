@@ -58,6 +58,8 @@ Route::group(['middleware' => 'role:customer'],function (){
     Route::post('/event/filter/title',[\App\Http\Controllers\CustomerController::class,'filterByName']);
     Route::post('/event/filter/venue',[\App\Http\Controllers\CustomerController::class,'filterByVenue']);
     Route::post('/event/filter/category',[\App\Http\Controllers\CustomerController::class,'filterByCategory']);
+    Route::post('/event/filter/date',[\App\Http\Controllers\CustomerController::class,'filterByDate']);
+    Route::get('/customer/reservations',[\App\Http\Controllers\CustomerController::class,'myReservations'])->name('customer.reservations');
 });
 
 Route::group(['middleware' => 'role:organizer'],function (){
@@ -72,4 +74,4 @@ Route::group(['middleware' => 'role:organizer'],function (){
     Route::post('/request/refuse',[\App\Http\Controllers\OrganizerController::class,'refuseRequest']);
 });
 
-Route::get('/events/all',[\App\Http\Controllers\CustomerController::class,'allEvents'])->name('events.all');
+Route::get('/events/all',[\App\Http\Controllers\CustomerController::class,'allEvents']);
