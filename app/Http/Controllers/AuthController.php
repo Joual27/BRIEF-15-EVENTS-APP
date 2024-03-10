@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Customer;
 use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
@@ -21,6 +23,8 @@ class AuthController extends Controller
     }
 
     public function loginPage(){
+
+
         return view('auth.login');
     }
 
@@ -86,6 +90,10 @@ class AuthController extends Controller
              else if($logging_user->is_organizer()){
                  Session::put('role','organizer');
                  return redirect()->route('dashboard');
+             }
+             else if($logging_user->is_admin()){
+                 Session::put('role','admin');
+                 return redirect()->route('admin.dashboard');
              }
 
          }

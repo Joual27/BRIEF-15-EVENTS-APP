@@ -31,7 +31,7 @@
         <p class="text-[1.75rem] mt-[1.5rem] font-medium text-center text-gray-200">My reseravations :</p>
     </div>
 
-    <section class="w-[80%] mx-auto mt-[7rem]">
+    <section class="w-[80%] mx-auto mt-[7rem] pb-[4rem]">
         <div class="flex flex-wrap gap-[1rem] w-full">
             @foreach($reservations as $reservation)
                 <article class="bg-white w-[47.5%] relative flex">
@@ -55,16 +55,25 @@
                             <p>{{((!empty($reservation->validated))) ? $reservation->seat_number : '-'}}</p>
                         </div>
                         <div class="absolute bottom-[1rem] right-[1.5rem] w-full flex justify-end gap-[1rem]">
-                            @if($reservation->validated)
+                            @if($reservation->validated !== null)
                                  <div class="flex justify-center bg-green-500 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg">
                                     <p>Validated</p>
                                  </div>
-                                <div>
-
-                                </div>
-                            @elseif($reservation->refused_at)
+                                <form class="flex gap-[5px] cursor-pointer justify-center bg-indigo-500 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg hover:bg-indigo-400" action="{{route('ticket.mail',$reservation->reservation_id)}}">
+                                    <img src="{{asset('images/email.png')}}" class="w-[20px] h-[20px]" alt="email icon">
+                                    <button type="submit">Get Ticket By Mail</button>
+                                </form>
+                                <form class="flex gap-[5px] cursor-pointer justify-center bg-indigo-500 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg hover:bg-indigo-400" action="{{route('pdf.download',$reservation->reservation_id)}}">
+                                    <img src="{{asset('images/download.png')}}" class="w-[20px] h-[20px]" alt="download icon">
+                                    <button type="submit">Download Ticket</button>
+                                </form>
+                            @elseif($reservation->refused_at !== null)
                                 <div class="flex justify-center bg-red-500 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg">
                                     <p>Refused</p>
+                                </div>
+                            @elseif($reservation->date < now())
+                                <div class="flex justify-center bg-gray-600 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg">
+                                    <p>Event Finished</p>
                                 </div>
                             @else
                                 <div class="flex justify-center bg-orange-500 px-[0.5rem] py-[0.25rem] items-center font-medium text-white rounded-lg">
@@ -77,10 +86,30 @@
                 </article>
             @endforeach
         </div>
-        <div class="flex justify-end w-full mt-[1.5rem]">
-            {{$reservations->links()}}
-        </div>
+{{--        <div class="flex justify-end w-full mt-[1.5rem]">--}}
+{{--            {{$reservations->links()}}--}}
+{{--        </div>--}}
     </section>
+
+
+    @if($msg = \Illuminate\Support\Facades\Session::get('success'))
+        <div id="email_validation" class="absolute w-full h-full inset-0 bg-gray-700 backdrop-filter bg-opacity-50 backdrop-blur-md z-20 flex items-center justify-center" style="position: fixed;">
+           <div class="w-[20%]  py-[2rem] flex flex-col gap-[1rem] justify-center items-center bg-white rounded-xl">
+               <img src="{{asset('images/email.png')}}" class="w-[100px] h-[100px]" alt="">
+               <img src="{{asset('images/check.png')}}" class="w-[30px] h-[30px]" alt="">
+               <p class="text-center font-semibold text-gray-400 text-[1.1rem]">{{$msg}}</p>
+           </div>
+        </div>
+
+        <script>
+            let email_validation = document.getElementById('email_validation');
+            setTimeout(function (){
+                email_validation.classList.add('hidden');
+            },2000)
+        </script>
+
+    @endif
+
 
 
 @endsection

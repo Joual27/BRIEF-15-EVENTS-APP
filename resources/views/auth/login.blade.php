@@ -126,7 +126,7 @@
                             </div>
                         </div>
 
-                        <div class="w-[50%] pr-[3rem]">
+                        <div class="w-[50%]">
                             <img class="w-full rounded-tr-xl min-h-[67.5vh] rounded-br-xl object-cover" src="{{asset('images/auth.jpg')}}" alt="">
                         </div>
                     </div>

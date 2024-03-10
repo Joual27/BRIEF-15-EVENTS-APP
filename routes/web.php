@@ -60,6 +60,8 @@ Route::group(['middleware' => 'role:customer'],function (){
     Route::post('/event/filter/category',[\App\Http\Controllers\CustomerController::class,'filterByCategory']);
     Route::post('/event/filter/date',[\App\Http\Controllers\CustomerController::class,'filterByDate']);
     Route::get('/customer/reservations',[\App\Http\Controllers\CustomerController::class,'myReservations'])->name('customer.reservations');
+    Route::get('/ticket/download/{reservation_id}',[\App\Http\Controllers\CustomerController::class,'downloadTicket'])->name('pdf.download');
+    Route::get('/ticket/mail/{reservation_id}',[\App\Http\Controllers\CustomerController::class,'sendTicketByMail'])->name('ticket.mail');
 });
 
 Route::group(['middleware' => 'role:organizer'],function (){
@@ -73,5 +75,21 @@ Route::group(['middleware' => 'role:organizer'],function (){
     Route::post('/request/validate',[\App\Http\Controllers\OrganizerController::class,'validateRequest']);
     Route::post('/request/refuse',[\App\Http\Controllers\OrganizerController::class,'refuseRequest']);
 });
+
+Route::group(['middleware' => 'role:admin'],function (){
+    Route::get('/admin/dashboard', [\App\Http\Controllers\AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'users'])->name('users');
+    Route::get('/admin/categories', [\App\Http\Controllers\AdminController::class, 'categories'])->name('categories');
+    Route::post('/categories/add',[\App\Http\Controllers\AdminController::class,'createCategory'])->name('categories.add');
+    Route::get('/categories/edit/{category}',[\App\Http\Controllers\AdminController::class,'editCategory'])->name('categories.edit');
+    Route::post('/categories/edit/{category}',[\App\Http\Controllers\AdminController::class,'updateCategory'])->name('categories.update');
+    Route::delete('/categories/delete/{category}',[\App\Http\Controllers\AdminController::class,'deleteCategory'])->name('categories.delete');
+    Route::delete('/users/ban/{user}',[\App\Http\Controllers\AdminController::class,'banUser'])->name('users.ban');
+
+
+});
+
+
+
 
 Route::get('/events/all',[\App\Http\Controllers\CustomerController::class,'allEvents']);
