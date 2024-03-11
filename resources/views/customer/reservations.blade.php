@@ -18,7 +18,8 @@
             <ul class="flex ml-[4rem] text-gray-300 items-center justify-center  font-medium text-[1.25rem] gap-[40px] ">
                 <li class="hover:text-orange-400"><a href="">Home</a></li>
                 <li class="hover:text-orange-400"><a href="{{route('events.all')}}">All Events</a></li>
-                <li class="hover:text-orange-400"><a href="{{route('customer.reservations')}}">My Reservations</a></li>
+                <li class="hover:text-orange-400"><a href="{{route('customer.reservations',)}}">My Reservations</a></li>
+                <li class="hover:text-orange-400"><a href="{{route('logout')}}">Logout</a></li>
             </ul>
             <div>
                 <button class="text-white font-medium py-[0.4rem] px-[0.75rem] cursor-pointer btn-border ">
@@ -42,7 +43,7 @@
                     </section>
                     <section class="card-cont">
                         <small class="text-gray-600 font-semibold text-[0.9rem]">{{$reservation->category_name}}</small>
-                        <h3 class="text-[1rem] font-medium text-gray-800">{{$reservation->title}}</h3>
+                        <h3 class="text-[1rem] font-medium text-gray-800 {{ ($reservation->refused_at)? 'line-through': ''}}">{{$reservation->title}}</h3>
                         <div class="even-date">
                             <i class="fa fa-calendar"></i>
                             <time >

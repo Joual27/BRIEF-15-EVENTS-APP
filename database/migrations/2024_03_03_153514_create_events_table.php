@@ -24,6 +24,7 @@ return new class extends Migration
             $table->dateTime('validated_at')->nullable();
             $table->foreignId('organizer_id')->constrained('organizers');
             $table->foreignId('category_id')->constrained('categories');
+            $table->dateTime('rejected_at')->nullable();
             $table->string('image');
         });
     }

@@ -19,7 +19,7 @@
             <ul class="flex ml-[4rem] text-gray-300 items-center justify-center  font-medium text-[1.25rem] gap-[40px] ">
                 <li class="hover:text-orange-400"><a href="" >My Events</a></li>
                 <li class="hover:text-orange-400"><a href="">Stats</a></li>
-                <li class="hover:text-orange-400"><a href="">Logout</a></li>
+                <li class="hover:text-orange-400"><a href="{{route('logout')}}">Logout</a></li>
             </ul>
 
                 <div id="notifs" class="relative h-32 w-32 mt-[75px] cursor-pointer">
@@ -131,7 +131,7 @@
                                             <p>Upcoming</p>
                                         </div>
                                 @endif
-                                    <a href="{{route('event.edit',$event)}}"><img src="{{asset('images/edit.png')}}" class="w-[35px] h-[35px] cursor-pointer" alt=""></a>
+                                    <a href="{{route('event.edit',$event)}}"><img src="{{asset('images/edit.png')}}" class="w-[35px] h-[35px] mt-[0.75rem] cursor-pointer" alt=""></a>
                                     <form action="{{ route('event.delete', $event) }}" class="" method="POST">
                                         @csrf
                                         @method('DELETE')
@@ -172,16 +172,16 @@
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <dl>
-                            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total Sold Tickets</dt>
-                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">4.9K</dd>
+                            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Rejected Events</dt>
+                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">{{$rejectedReservations}}</dd>
                         </dl>
                     </div>
                 </div>
                 <div class="bg-white overflow-hidden shadow sm:rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
                         <dl>
-                            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Remaining tickets</dt>
-                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">166.7K</dd>
+                            <dt class="text-sm leading-5 font-medium text-gray-500 truncate">Total sold tickets</dt>
+                            <dd class="mt-1 text-3xl leading-9 font-semibold text-violet-600">{{$totalSoldTickets}} </dd>
                         </dl>
                     </div>
                 </div>

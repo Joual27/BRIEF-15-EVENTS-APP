@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('seat_number');
             $table->foreignId('customer_id')->constrained('customers');
             $table->foreignId('event_id')->constrained('events');
+            $table->dateTime('validated_at')->nullable();
+            $table->dateTime('refused_at')->nullable();
+
         });
     }
 

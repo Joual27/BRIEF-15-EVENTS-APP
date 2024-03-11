@@ -9,6 +9,7 @@ use App\Models\Reservation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class OrganizerController extends Controller
@@ -17,19 +18,34 @@ class OrganizerController extends Controller
     {
 
         if(Session::get('user_id')){
-            $organizer = User::where('id',Session::get('user_id'))->first();
+            $organizer = Organizer::where('user_id',Session::get('user_id'))->first();
         }
         else{
             $organizer = Auth::user()->organizer;
         }
         $validated_events = Event::whereNotNull('validated_at')->count();
-        $pending_events = Event::whereNUll('validated_at')->count();
-        $events = Event::where('organizer_id',$organizer->id)->paginate(3);
+        $pending_events = Event::whereNull('validated_at')->count();
+        $events = Event::where('organizer_id',$organizer->id)
+            ->whereNull('rejected_at')
+            ->whereNotNull('validated_at')
+            ->paginate(3);
+
+        $totalSoldTickets = DB::table('reservations')
+            ->join('events','reservations.event_id','=','events.id')
+            ->join('organizers','events.organizer_id','=','organizers.id')
+            ->whereNotNull('reservations.validated_at')
+            ->where('organizers.id',$organizer->id)
+            ->count();
+
+        $rejectedReservations = Reservation::whereNotNull('refused_at')->count();
+
         $categories = Category::all();
         return view('organizer.dashboard',[
             'categories' => $categories,
             'events' => $events ,
             'validated_events' => $validated_events,
+            'totalSoldTickets' => $totalSoldTickets,
+            'rejectedReservations' => $rejectedReservations ,
             'pending_events' => $pending_events
         ]);
     }
@@ -48,7 +64,7 @@ class OrganizerController extends Controller
         ]);
 
         if(Session::get('user_id')){
-            $organizer = User::where('id',Session::get('user_id'))->first();
+            $organizer = Organizer::where('user_id',Session::get('user_id'))->first();
         }
         else{
             $organizer = Auth::user()->organizer;
@@ -124,7 +140,7 @@ class OrganizerController extends Controller
     public function fetchRequests()
     {
         if($id = Session::get('user_id')){
-            $organizer = Organizer::where('id',$id)->first();
+            $organizer = Organizer::where('user_id',$id)->first();
         }
         else{
             $organizer = Auth::user()->organizer;
@@ -144,7 +160,7 @@ class OrganizerController extends Controller
 
     public function requestsCount(){
         if($id = Session::get('user_id')){
-            $organizer = Organizer::where('id',$id)->first();
+            $organizer = Organizer::where('user_id',$id)->first();
         }
         else{
             $organizer = Auth::user()->organizer;

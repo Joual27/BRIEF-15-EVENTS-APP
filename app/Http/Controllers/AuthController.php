@@ -24,7 +24,6 @@ class AuthController extends Controller
 
     public function loginPage(){
 
-
         return view('auth.login');
     }
 
@@ -74,32 +73,46 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-         $request->validate([
-            'email'=>'required|email',
+        $request->validate([
+            'email' => 'required|email',
             'password' => 'required'
-         ]);
+        ]);
 
-         if(Auth::attempt(['email' => $request->input('email') , 'password' => $request->input('password')])){
+        $user = User::where('email', $request->input('email'))->first();
 
-             $logging_user = Auth::user();
+        if ($user && $user->banned_at) {
+            abort(403, 'You are banned from accessing this application.');
+        }
 
-             if($logging_user->is_customer()){
-                Session::put('role','customer');
+        else if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
+            if(Auth::user()){
+                $logging_user = Auth::user();
+            }
+            else{
+                $logging_user = User::findOrFail(Session::get('user_id'));
+            }
+            if ($logging_user->is_customer()) {
+                Session::put('role', 'customer');
+                Session::put('user_id',$logging_user->id);
                 return redirect()->route('events.all');
-             }
-             else if($logging_user->is_organizer()){
-                 Session::put('role','organizer');
-                 return redirect()->route('dashboard');
-             }
-             else if($logging_user->is_admin()){
-                 Session::put('role','admin');
-                 return redirect()->route('admin.dashboard');
-             }
+            } else if ($logging_user->is_organizer()) {
+                Session::put('role', 'organizer');
+                Session::put('user_id',$logging_user->id);
+                return redirect()->route('dashboard');
+            } else if ($logging_user->is_admin()) {
+                Session::put('role', 'admin');
+                return redirect()->route('admin.dashboard');
+            }
+        } else {
+            return redirect()->back()->withErrors('Invalid Credentials, try again!');
+        }
+    }
 
-         }
-         else{
-             return redirect()->back()->withErrors('Invalid Credentials , try again !');
-         }
+    public function logout()
+    {
+        Auth::logout();
+        Session::forget('role');
+        return redirect()->route('login');
     }
 
 

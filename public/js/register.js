@@ -14,8 +14,6 @@ show_customer_register_form_btn.addEventListener('click',function (){
     customer_register_form.classList.remove('hidden');
 });
 
-
-
 show_organizer_register_form_btn.addEventListener('click',function (){
     show_customer_register_form_btn.classList.remove('choice-btn');
     this.classList.add('choice-btn');

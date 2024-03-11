@@ -22,23 +22,28 @@ class CustomerController extends Controller
         return view('customer.events');
     }
     public function allEvents(){
-        $events = Event::where('date' , '>' ,now())
-            ->whereNotNUll('validated_at')
-            ->paginate(3);;
+        $events = Event::select(
+            'events.*',
+            DB::raw('(events.number_of_seats - COALESCE((SELECT COUNT(*) FROM reservations WHERE reservations.event_id = events.id AND reservations.validated_at IS NOT NULL), 0)) as available_seats')
+        )
+            ->join('organizers', 'events.organizer_id', '=', 'organizers.id')
+            ->leftJoin('users', 'organizers.user_id', '=', 'users.id')
+            ->where('date', '>', now())
+            ->whereNotNull('events.validated_at')
+            ->whereNull('users.banned_at')
+            ->paginate(3);
+
         return response()->json($events);
     }
 
     public function bookEvent(Request $request)
     {
-
-
             $event = Event::findOrFail($request->event_id);
             $validatedReservations = Reservation::where('event_id',$request->event_id)
                                      ->whereNotNull('validated_at')
                                      ->count();
 
             $available_seats = $event->number_of_seats - $validatedReservations ;
-
 
             if($available_seats > 0){
                 if($validatedReservations == 0){
@@ -75,6 +80,9 @@ class CustomerController extends Controller
                     return response()->json(['status' => 'pending']);
                 }
             }
+              else{
+                  return response()->json(['status' => 'error']);
+              }
             }
 
 
@@ -87,17 +95,11 @@ class CustomerController extends Controller
             public function filterByName(Request $request){
                 if (isset($request->search)){
                     $events = Event::where('date' , '>' ,now())
-                        ->where('title','LIKE', $request->term . '%')
-                        ->whereNotNUll('validated_at')
-                        ->paginate(3);
-                    return response()->json($events);
-                }
-            }
-            public function filterByVenue(Request $request){
-                if (isset($request->search)){
-                    $events = Event::where('date' , '>' ,now())
-                        ->where('venue','LIKE', $request->term . '%')
-                        ->whereNotNUll('validated_at')
+                        ->where(function($query) use ($request) {
+                            $query->where('title', 'LIKE', $request->term . '%')
+                                ->orWhere('venue', 'LIKE', '%' . $request->term . '%');
+                        })
+                        ->whereNotNull('validated_at')
                         ->paginate(3);
                     return response()->json($events);
                 }
@@ -116,20 +118,7 @@ class CustomerController extends Controller
                     return response()->json($events);
                 }
             }
-            public function filterByDate(Request $request){
-                if (isset($request->filter)){
-                    $event_date = date('Y-m-d',strtotime($request->date));
-                    $eventsQuery = Event::where('date', '>', now())
-                        ->whereDate('date', $event_date)
-                        ->whereNotNull('validated_at');
 
-                    // Log the generated SQL query
-                    \Log::info($eventsQuery->toSql());
-
-                    $events = $eventsQuery->paginate(3);
-                    return response()->json($events);
-                }
-            }
 
             public function myReservations()
             {
@@ -212,6 +201,8 @@ class CustomerController extends Controller
                     return redirect()->back()->with('error', 'Failed to send email: ' . $e->getMessage());
                 }
             }
+
+
 
 
 

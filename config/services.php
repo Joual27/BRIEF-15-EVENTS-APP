@@ -40,8 +40,8 @@ return [
 
 //    'facebook' => [
 //        'client_id' => '810472304428325',
-//        'client_secret' => '7b70fe03515664e5770e33d484f0be40' ,
-//        'redirect' => 'https://2885-197-230-250-154.ngrok-free.app/auth/facebook/user/data'
+//        'client_secret' => '7b70fe03515664e5770e33d484f0be40',
+//        'redirect' => 'https://e560-197-230-250-154.ngrok-free.app/auth/facebook/user/data'
 //    ]
 
 ];
